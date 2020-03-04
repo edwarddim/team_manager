@@ -12,7 +12,7 @@ const PlayerWrapper = () =>{
     return(
         <div id={styles.wrapper}>
             <Link to="list" >List</Link> |
-            <Link to="status" >Add Player</Link>
+            <Link to="add" >Add Player</Link>
             <Router>
                 <ListComponent path="list" />
                 <AddComponent path="add" />
