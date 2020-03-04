@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import axios from 'axios'
+import { navigate } from '@reach/router'
 
 const AddComponent = () =>{
 
@@ -7,7 +8,7 @@ const AddComponent = () =>{
         name: "",
         preferred_position: ""
     })
-    const [errState, setErrState] = useState([])
+    const [errState, setErrState] = useState({})
 
     const handleChange = (e) =>{
         setFormState({
@@ -19,25 +20,19 @@ const AddComponent = () =>{
     const submitHandler = (e) =>{
         e.preventDefault();
         axios.post("http://localhost:8000/api/players", formState)
-            .then(res => console.log(res))
+            .then(res =>{
+                navigate("/players/list")
+            })
             .catch(err => {
                 const {errors} = err.response.data;
+                const errorObj = {}
 
                 for(const key of Object.keys(errors)){
-                    errorArr.push(errors[key].message)
+                    errorObj[key] = true;
                 }
-
-                // const errorArr = []
-                // for(const key of Object.keys(errors)){
-                //     errorArr.push(errors[key].message)
-                // }
-                // setErrState(errorArr)
+                setErrState(errorObj)
             })
-        setFormState({
-            name: "",
-            preferred_position: ""
-        })
-    }
+    };
 
     return(
         <form onSubmit={submitHandler}>
@@ -45,13 +40,15 @@ const AddComponent = () =>{
             <p>
                 Name:
                 <input name="name" value={formState.name} onChange={handleChange} />
+                {(errState.name)? <small className="ml-1 text-danger font-weight-bold">WRONG</small>:null}
             </p>
             <p>
                 Preferred Position:
                 <input name="preferred_position" value={formState.preferred_position} onChange={handleChange} />
+                {(errState.preferred_position)? <small className="ml-1 text-danger font-weight-bold">WRONG</small>:null}
+
             </p>
             <button className="btn btn-dark">Create</button>
-            {errState.map((err, index) => <p key={index}>{err}</p>) }
         </form>
     )
 }

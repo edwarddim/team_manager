@@ -1,7 +1,26 @@
-import React from 'react'
-import RowComponent from './RowComponent'
+import React, {useEffect,useState} from 'react'
+import axios from 'axios'
+
+const RowItem = (item,i) => {
+    return(
+        <tr key={i}>
+            <td>{item.name}</td>
+            <td>{item.preferred_position}</td>
+            <td>DELETE</td>
+        </tr>
+    )
+}
 
 const ListComponent = () =>{
+    const [listState, setListState] = useState([])
+    useEffect(()=>{
+        axios.get("http://localhost:8000/api/players")
+            .then(res => {
+                setListState(res.data)
+            })
+            .catch(err => console.log(err))
+    },[])
+
     return (
         <table className="table table-dark">
             <thead>
@@ -12,7 +31,11 @@ const ListComponent = () =>{
                 </tr>
             </thead>
             <tbody>
-                <RowComponent />
+                {listState.map((item,i)=>{
+                    return(
+                        RowItem(item, i)
+                    )
+                })}
             </tbody>
         </table>
     )
