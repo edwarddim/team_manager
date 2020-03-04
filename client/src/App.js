@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Router, Link} from "@reach/router"
+
+import styles from "./module.css/AppComponent.module.css"
+
+import PlayerWrapper from './components/PlayerWrapper';
+import StatusWrapper from './components/StatusWrapper';
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container p-1 border border-dark mt-1" id={styles.wrapper}>
+      <Link to="players/list" >Manaage Players</Link> |
+      <Link to="status" >Manaage Players Status</Link>
+      <Router>
+        <PlayerWrapper path="players/*"/>
+        <StatusWrapper path="status" />
+      </Router>
     </div>
   );
 }
