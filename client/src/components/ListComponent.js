@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const ListComponent = () =>{
     const [listState, setListState] = useState([])
+    
     useEffect(()=>{
         axios.get("http://localhost:8000/api/players")
             .then(res => {
@@ -10,8 +11,8 @@ const ListComponent = () =>{
             })
             .catch(err => console.log(err))
     },[])
+
     const deleteHandler = id =>{
-        // var check = confirm("Are you sure you want to delete this player?")
         var check = window.confirm("Are you sure?")
         if(check){
             axios.delete("http://localhost:8000/api/players/"+id)
