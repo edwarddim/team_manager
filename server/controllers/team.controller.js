@@ -11,3 +11,10 @@ module.exports.createPlayer = (req, res) =>{
         .then(player => res.json(player))
         .catch(err => res.status(400).json(err))
 }
+
+module.exports.deletePlayer = (req, res) =>{
+    const {id} = req.params;
+    Player.deleteOne({_id:id})
+        .then(res => res.json(res))
+        .catch(err => res.json(err))
+}
