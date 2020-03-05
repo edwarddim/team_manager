@@ -11,11 +11,15 @@ const ListComponent = () =>{
             .catch(err => console.log(err))
     },[])
     const deleteHandler = id =>{
-        axios.delete("http://localhost:8000/api/players/"+id)
+        // var check = confirm("Are you sure you want to delete this player?")
+        var check = window.confirm("Are you sure?")
+        if(check){
+            axios.delete("http://localhost:8000/api/players/"+id)
             .then(res =>{
                 removeFromDom(id)
             })
             .catch(err => console.log("ERR: ",err))
+        }
     }
     const removeFromDom = id =>{
         setListState(listState.filter(player => player._id !== id))
