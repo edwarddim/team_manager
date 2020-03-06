@@ -5,4 +5,3 @@ module.exports = app => {
     app.post("/api/players", Player.createPlayer)
     app.delete("/api/players/:id",Player.deletePlayer)
 }
-

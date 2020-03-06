@@ -11,15 +11,15 @@ const PlayerSchema = mongoose.Schema({
     },
     game_1:{
         type:String,
-        default:"undecided"
+        default:"UNDECIDED"
     },
     game_2:{
         type:String,
-        default:"undecided"
+        default:"UNDECIDED"
     },
     game_3:{
         type:String,
-        default:"undecided"
+        default:"UNDECIDED"
     },
 },{timestamps:true})
 
