@@ -12,9 +12,21 @@ const Row = ({item, id}) =>{
         <tr>
             <td>{item.name}</td>
             <td>
-            <button onClick={(event) => clickHandle(event)} type="button" className="btn btn-primary" data-toggle="button" aria-pressed="false" autoComplete="off">
-                {item[game]}
-            </button>
+                {item[game] === "UNDECIDED" &&
+                    <button onClick={(event) => clickHandle(event)} type="button" className="btn btn-primary" data-toggle="button" aria-pressed="false" autoComplete="off">
+                        {item[game]}
+                    </button>
+                }
+                {item[game] === "PLAYING" &&
+                    <button onClick={(event) => clickHandle(event)} type="button" className="btn btn-primary" data-toggle="button" aria-pressed="false" autoComplete="off">
+                        {item[game]}
+                    </button>
+                }
+                {item[game] === "NOT_PLAYING" &&
+                    <button onClick={(event) => clickHandle(event)} type="button" className="btn btn-primary" data-toggle="button" aria-pressed="false" autoComplete="off">
+                        {item[game]}
+                    </button>
+                }
             </td>
         </tr>
     )
