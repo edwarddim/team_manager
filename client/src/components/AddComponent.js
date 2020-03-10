@@ -33,6 +33,7 @@ const AddComponent = () =>{
         e.preventDefault();
         axios.post("http://localhost:8000/api/players", formState)
             .then(res =>{
+                // console.log("RETURNED PLAYER: ", res.data)
                 navigate("/players/list")
             })
             .catch(err => {
