@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import { navigate } from '@reach/router'
 
@@ -9,18 +9,31 @@ const AddComponent = () =>{
         preferred_position: ""
     })
     const [errState, setErrState] = useState({})
+    const [trigger, swapTrigger] = useState(false)
+    const [validState, setValidState] = useState(false)
+
+    const checkValid = () =>{
+        (formState.name.length < 2 || formState.preferred_position.length < 1) ?
+        setValidState(false) : setValidState(true)
+    }
+
+    useEffect(()=>{
+        checkValid()
+    },[trigger])
 
     const handleChange = (e) =>{
         setFormState({
             ...formState,
             [e.target.name] : e.target.value
         })
+        swapTrigger(!trigger)
     }
 
     const submitHandler = (e) =>{
         e.preventDefault();
         axios.post("http://localhost:8000/api/players", formState)
             .then(res =>{
+                // console.log("RETURNED PLAYER: ", res.data)
                 navigate("/players/list")
             })
             .catch(err => {
@@ -48,7 +61,7 @@ const AddComponent = () =>{
                 {(errState.preferred_position)? <small className="ml-1 text-danger font-weight-bold">WRONG</small>:null}
 
             </p>
-            <button className="btn btn-dark">Create</button>
+            {(validState) ?<button className="btn btn-dark">Create</button> : <button className="btn btn-dark" disabled>Create</button>  }
         </form>
     )
 }

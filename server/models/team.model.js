@@ -1,5 +1,19 @@
 const mongoose = require("mongoose")
 
+// 0:UNDECIDED
+// 1:PLAYING
+// 2:NOT PLAYING
+
+const GameSchema = mongoose.Schema({
+    game_number:{
+        type:Number,
+    },
+    status:{
+        type:Number,
+        default: 0
+    }
+})
+
 const PlayerSchema = mongoose.Schema({
     name:{
         type:String,
@@ -9,19 +23,14 @@ const PlayerSchema = mongoose.Schema({
         type:String,
         required:[true, "Preferred Position must be inputed"]
     },
-    game_1:{
-        type:String,
-        default:"undecided"
-    },
-    game_2:{
-        type:String,
-        default:"undecided"
-    },
-    game_3:{
-        type:String,
-        default:"undecided"
-    },
+    game_1:GameSchema,
+    game_2:GameSchema,
+    game_3:GameSchema
 },{timestamps:true})
 
 const Player = mongoose.model("Player", PlayerSchema)
-module.exports = Player
+const Game = mongoose.model("Game", GameSchema)
+module.exports = {
+    Player:Player,
+    Game:Game
+}

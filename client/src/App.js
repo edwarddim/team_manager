@@ -16,7 +16,7 @@ function App() {
       <Link to="status" >Manaage Players Status</Link>
       <Router>
         <PlayerWrapper path="players/*"/>
-        <StatusWrapper path="status" />
+        <StatusWrapper path="status/*" />
       </Router>
     </div>
   );

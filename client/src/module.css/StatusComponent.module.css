@@ -1,0 +1,10 @@
+#wrapper{
+    border: 1px solid black;
+    padding:10px;
+    margin-top:10px;
+    background-color: white;
+}
+#links{
+    display: inline-block;
+    width: 300px;
+}
